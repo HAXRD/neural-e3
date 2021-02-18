@@ -7,10 +7,10 @@ def get_args():
     parser = argparse.ArgumentParser()
     # general parameters
     parser.add_argument('-system', type=str, default='local')
-    parser.add_argument('-env', type=str, default='mountaincar')
+    parser.add_argument('-env', type=str, default='maze5')
     parser.add_argument('-seed', type=int, default=12345)    
     parser.add_argument('-cuda', type=int, default=1)
-    parser.add_argument('-results_dir', type=str, default='/e3/scratch/')
+    parser.add_argument('-results_dir', type=str, default='./e3/scratch/')
     parser.add_argument('-test', type=int, default=1)
     # forward model parameters
     parser.add_argument('-n_feature_maps', type=int, default=64)
@@ -48,11 +48,6 @@ def get_args():
     config = parser.parse_args()
 
     config = environment.add_constants(config)
-
-    if config.system == 'local' or config.system == 'gcr':
-        config.results_dir = '/nycml/mihenaff/results/' + config.results_dir
-    elif config.system == 'philly':
-        config.results_dir = os.getenv('PT_OUTPUT_DIR') + config.results_dir
 
     # Define experiment name based on parameters
     experiment_name = f'env={config.env}'

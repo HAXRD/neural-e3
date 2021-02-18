@@ -49,18 +49,20 @@ def main():
     print(f'# parameters: {utils.count_parameters(agent)}')
 
     # Load checkpoint if one exists
-    if os.path.isfile(experiment + '/agent.pth'):
-        print(f'[loading checkpoint from {experiment}]')
-        checkpoint = torch.load(experiment + '/agent.pth')
-        agent.load_state_dict(checkpoint['agent'].state_dict())
-        optimizer.load_state_dict(checkpoint['optimizer'].state_dict())
-        agent.replay_memory = checkpoint['agent'].replay_memory
-        epoch = checkpoint['ep'] + 1
-        perf = torch.load(experiment + '/perf.pth')
-        print(f'[resuming at epoch {epoch}]')
-    else:
-        epoch = 0
-        perf = {'losses': [], 'metrics': [], 'rewards': []}
+    # if os.path.isfile(experiment + '/agent.pth'):
+    #     print(f'[loading checkpoint from {experiment}]')
+    #     checkpoint = torch.load(experiment + '/agent.pth')
+    #     agent.load_state_dict(checkpoint['agent'].state_dict())
+    #     optimizer.load_state_dict(checkpoint['optimizer'].state_dict())
+    #     agent.replay_memory = checkpoint['agent'].replay_memory
+    #     epoch = checkpoint['ep'] + 1
+    #     perf = torch.load(experiment + '/perf.pth')
+    #     print(f'[resuming at epoch {epoch}]')
+    # else:
+    #     epoch = 0
+    #     perf = {'losses': [], 'metrics': [], 'rewards': []}
+    epoch = 0
+    perf = {'losses': [], 'metrics': [], 'rewards': []}
     tensorboard = Tensorboard(config.results_dir + f'/tensorboard/{experiment_name}', log_dir=config.results_dir + '/tensorboard_logs/')
     
     best_exploit_perf = -math.inf

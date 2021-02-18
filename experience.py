@@ -37,7 +37,7 @@ class ReplayMemory:
         self.rollouts.append(rollout)
         rewards = torch.tensor(rollout.rewards)
         # TODO hardcoded for single reward
-        high_rewards = rewards.eq(self.config.rmax)
+        high_rewards = rewards.eq(self.config.rmax).type(torch.cuda.ByteTensor)
         if high_rewards.any():
             if torch.argmax(high_rewards).item() > self.config.T:
                 self.reward_indices.append({'rollout': len(self.rollouts) - 1, 'indx': rewards.eq(self.config.rmax).nonzero()})

@@ -1,4 +1,4 @@
-import torch, pdb, numpy, utils, random, skimage, maze, re
+import torch, pdb, numpy, utils, random, maze, re
 import gym
 
 from torch.autograd import Variable
